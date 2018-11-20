@@ -24,5 +24,6 @@ namespace JXGIS.FZToponymy.Models.Domain
         public virtual List<DISTRICT> SubDistrict { get; set; }
         public virtual List<SYSUSER> SYSUSERs { get; set; }
 
+
     }
 }
