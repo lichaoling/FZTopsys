@@ -23,5 +23,6 @@ namespace JXGIS.FZToponymy.Models.Domain
         [ForeignKey("PARENTID")]
         public virtual List<DISTRICT> SubDistrict { get; set; }
         public virtual List<SYSUSER> SYSUSERs { get; set; }
+
     }
 }
