@@ -1,0 +1,24 @@
+﻿{
+  "Title": "福州地名",
+ 
+  //"DbConStr": "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=WIN-26H36BV3IUI)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));user id=tianditupinghu;Password=jxgis;",
+  "DbConStr": "Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=orcl.jxgis.com)));user id=fztoponymy;Password=jxgis;",
+ 
+  "Browsers": {
+    "chrome": "http://rj.baidu.com/search/index/?kw=%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8",
+    "ie": "http://rj.baidu.com/search/index/?kw=ie11",
+    "firefox": "http://rj.baidu.com/search/index/?kw=firefox",
+    "qh360": "http://rj.baidu.com/search/index/?kw=360%25E6%259E%2581%25E9%2580%259F%25E6%25B5%258F%25E8%25A7%2588%25E5%2599%25A8%2520"
+  },
+  "Security": {
+    "PublicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRGAb3PAMQDYP0pWbdlXiWDDDFeoZ+dRxoJ0+ZwtoqQbE85nH7m7OYejxkyOB3Mj1TH5b+OPmvwX/h9wtsnXtC/PgJBwL71eqCxRkuqh5JEcjU08py7bG/nh2a9T0Udp5fQ38v1m4JSdNo+8pbyr8gsMz+n0ITOMpJdKNgvxEOfwIDAQAB",
+    "PrivateKey": "MIICXAIBAAKBgQDRGAb3PAMQDYP0pWbdlXiWDDDFeoZ+dRxoJ0+ZwtoqQbE85nH7m7OYejxkyOB3Mj1TH5b+OPmvwX/h9wtsnXtC/PgJBwL71eqCxRkuqh5JEcjU08py7bG/nh2a9T0Udp5fQ38v1m4JSdNo+8pbyr8gsMz+n0ITOMpJdKNgvxEOfwIDAQABAoGARAOy0F0/Ccu7rqrW6SEj1nskqjgO47eog+C1reiKGtC/nHXBgfzF0MWCO650BZHcDNvru8pAvgENXi2EE9KuMycs8KYTMGqlW+JCX+holZ73WcEsycwG23AiA5Oabmpz8dsEh/ISlwCvss7rz2mqzRIajkwKNlWEbibygmsm4SECQQD5xYpw4rxASaFPH7fXOZhWVc7LdhgXIOvHSemdZUnzD9bCEx6nsLLsBFsSDkWXt5jF7tTsx9Ck7ez0qEXaVGYJAkEA1k7QHOOG3qTD4Eu4pU16McVMTP0EMrZNBLTbqojGJ/mAncgpaKOHqJcTgGleBGjKvyMKIZ+UEkdKRz6BTqMyRwJAfc1qYltBOBwd3E18ejHvMaT8iGwNzDBvsSvgN7+ZlIwovg2FRi7wn4G+IQUBNl5p21/k7PHje/6+d6f9ru8NiQJAJ88wHY2uagFVWX73Z82Cm2g5Cjwd4YW3vN4TyBPsK1TPrX+XIZbvBkQ6HSp1ioAk2Wia4zAPg222wJE91+u81QJBAKpfnsEseGn7Q7Kuu7y7RWPewteXnHuS/qZtW8qWCUWYU9rIZQhpcHmWgqsIscmz9Hyo4e3KV2mUdLqPZvJmC6c="
+  },
+  "Error": {
+    // --是否显示原始错误--
+    //"ShowOrginMessage": false,
+    // --默认全局错误--
+    //"DefaultGlobalMessage": ""
+  },
+ 
+}
