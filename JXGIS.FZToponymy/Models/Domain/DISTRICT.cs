@@ -18,6 +18,7 @@ namespace JXGIS.FZToponymy.Models.Domain
         public string CODE { get; set; }
         public string GEOM_WKT { get; set; }
 
+
         public virtual DISTRICT Parent { get; set; }
 
         [ForeignKey("PARENTID")]
