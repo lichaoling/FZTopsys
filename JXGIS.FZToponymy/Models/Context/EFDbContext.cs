@@ -50,6 +50,7 @@ namespace JXGIS.FZToponymy.Models.Context
 
         public DbSet<SYSDEPARTMENT> SYSDEPARTMENT { get; set; }
         public DbSet<DISTRICT> DISTRICT { get; set; }
+        public DbSet<MPOFUPLOADFILES> MPOFUPLOADFILES { get; set; }
 
     }
 }

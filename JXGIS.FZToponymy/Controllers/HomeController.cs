@@ -19,7 +19,7 @@ namespace JXGIS.FZToponymy.Controllers
         [CustomHandleError]
         public ActionResult Index()
         {
-            throw new Exception("有错误");
+            //throw new Exception("有错误");
 
             return View();
         }
