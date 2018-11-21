@@ -26,9 +26,24 @@ namespace JXGIS.FZToponymy.Business.Common
     public class UploadFileUtil
     {
         public static readonly string uploadBasePath = AppDomain.CurrentDomain.BaseDirectory;
+        // 门牌的相对路径
+        public static readonly string MPRelativePath = Path.Combine("UploadFiles", "门牌");
+
+        // 地名的相对路径
+        public static readonly string DMRelativePath = Path.Combine("UploadFiles", "地名");
 
         // 门牌编制申请文件上传的相对路径
-        public static readonly string MPRelativePath = Path.Combine("UploadFiles", "门牌", "申请文件");
+        public static readonly string MPBZSQRelativePath = Path.Combine(MPRelativePath, Enums.UploadFileCategory.HouseBZ);
+        // 门牌照片上传的相对路径
+        public static readonly string MPPicRelativePath = Path.Combine(MPRelativePath, Enums.UploadFileCategory.MPPic);
+        // 门牌二维码上传的相对路径
+        public static readonly string MPQRCodeRelativePath = Path.Combine(MPRelativePath, Enums.UploadFileCategory.MPQRCode);
+
+        // 道路（桥梁）照片上传的相对路径
+        public static readonly string RoadRelativePath = Path.Combine(DMRelativePath, Enums.UploadFileCategory.RoadPic);
+        // 小区（楼宇）照片上传的相对路径
+        public static readonly string HouseRelativePath = Path.Combine(DMRelativePath, Enums.UploadFileCategory.HousePic);
+
 
         // 判断文件是否是图片
         public static bool IsPicture(string fileName)
@@ -48,8 +63,20 @@ namespace JXGIS.FZToponymy.Business.Common
 
             switch (fileType.ToUpper())
             {
-                case "门牌":
-                    relativePath = MPRelativePath;
+                case Enums.UploadFileCategory.HouseBZ:
+                    relativePath = MPBZSQRelativePath;
+                    break;
+                case Enums.UploadFileCategory.MPPic:
+                    relativePath = MPPicRelativePath;
+                    break;
+                case Enums.UploadFileCategory.MPQRCode:
+                    relativePath = MPQRCodeRelativePath;
+                    break;
+                case Enums.UploadFileCategory.RoadPic:
+                    relativePath = RoadRelativePath;
+                    break;
+                case Enums.UploadFileCategory.HousePic:
+                    relativePath = HouseRelativePath;
                     break;
                 default:
                     throw new Exception("未知的文件目录");
@@ -102,16 +129,49 @@ namespace JXGIS.FZToponymy.Business.Common
                 // 文件ID，门牌记录的ID，图片相对路径，缩略图相对路径，文件名称等
                 using (var dbContext = SystemUtils.NewEFDbContext)
                 {
-                    if (fileType == "门牌")
+                    if (fileType == Enums.UploadFileCategory.HouseBZ)
+                    {
+                        HOUSEBZOFUPLOADFILES data = new HOUSEBZOFUPLOADFILES();
+                        data.ID = fileID;
+                        data.FILENAME = fileName;
+                        data.TYPE = docType;
+                        data.HOUSEBZID = ID;
+                        data.FILEEX = fileEx;
+                        data.STATE = Enums.State.Enable;
+                        dbContext.HOUSEBZOFUPLOADFILES.Add(data);
+                    }
+                    if (fileType == Enums.UploadFileCategory.MPPic)
                     {
                         MPOFUPLOADFILES data = new MPOFUPLOADFILES();
                         data.ID = fileID;
                         data.FILENAME = fileName;
-                        data.TYPE = docType;
+                        data.TYPE = Enums.UploadFileCategory.MPPic;
                         data.MPID = ID;
                         data.FILEEX = fileEx;
                         data.STATE = Enums.State.Enable;
                         dbContext.MPOFUPLOADFILES.Add(data);
+                    }
+                    if (fileType == Enums.UploadFileCategory.RoadPic)
+                    {
+                        DMOFUPLOADFILES data = new DMOFUPLOADFILES();
+                        data.ID = fileID;
+                        data.FILENAME = fileName;
+                        data.TYPE = Enums.UploadFileCategory.RoadPic;
+                        data.DMID = ID;
+                        data.FILEEX = fileEx;
+                        data.STATE = Enums.State.Enable;
+                        dbContext.DMOFUPLOADFILES.Add(data);
+                    }
+                    if (fileType == Enums.UploadFileCategory.HousePic)
+                    {
+                        DMOFUPLOADFILES data = new DMOFUPLOADFILES();
+                        data.ID = fileID;
+                        data.FILENAME = fileName;
+                        data.TYPE = Enums.UploadFileCategory.HousePic;
+                        data.DMID = ID;
+                        data.FILEEX = fileEx;
+                        data.STATE = Enums.State.Enable;
+                        dbContext.DMOFUPLOADFILES.Add(data);
                     }
                     dbContext.SaveChanges();
                 }
@@ -124,9 +184,45 @@ namespace JXGIS.FZToponymy.Business.Common
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
                 List<Paths> paths = new List<Paths>();
-                if (fileType == "门牌")
+                if (fileType == Enums.UploadFileCategory.HouseBZ)
                 {
-                    var files = dbContext.MPOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.MPID == ID).Where(t => t.TYPE == docType).ToList();
+                    var files = dbContext.HOUSEBZOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.HOUSEBZID == ID).Where(t => t.TYPE == docType).ToList();
+                    foreach (var f in files)
+                    {
+                        var p = GetUploadFilePath(fileType, ID, f.ID, f.FILENAME);
+                        paths.Add(p);
+                    }
+                }
+                else if (fileType == Enums.UploadFileCategory.MPPic) //docType传空
+                {
+                    var files = dbContext.MPOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.MPID == ID).Where(t => t.TYPE == Enums.UploadFileCategory.MPPic).ToList();
+                    foreach (var f in files)
+                    {
+                        var p = GetUploadFilePath(fileType, ID, f.ID, f.FILENAME);
+                        paths.Add(p);
+                    }
+                }
+                else if (fileType == Enums.UploadFileCategory.MPQRCode) //docType传空
+                {
+                    var files = dbContext.MPOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.MPID == ID).Where(t => t.TYPE == Enums.UploadFileCategory.MPQRCode).ToList();
+                    foreach (var f in files)
+                    {
+                        var p = GetUploadFilePath(fileType, ID, f.ID, f.FILENAME);
+                        paths.Add(p);
+                    }
+                }
+                else if (fileType == Enums.UploadFileCategory.RoadPic)  //docType传空
+                {
+                    var files = dbContext.DMOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.DMID == ID).Where(t => t.TYPE == Enums.UploadFileCategory.RoadPic).ToList();
+                    foreach (var f in files)
+                    {
+                        var p = GetUploadFilePath(fileType, ID, f.ID, f.FILENAME);
+                        paths.Add(p);
+                    }
+                }
+                else if (fileType == Enums.UploadFileCategory.HousePic)  //docType传空
+                {
+                    var files = dbContext.DMOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.DMID == ID).Where(t => t.TYPE == Enums.UploadFileCategory.HousePic).ToList();
                     foreach (var f in files)
                     {
                         var p = GetUploadFilePath(fileType, ID, f.ID, f.FILENAME);
@@ -134,7 +230,7 @@ namespace JXGIS.FZToponymy.Business.Common
                     }
                 }
                 else
-                    throw new Exception("未知的图片类型");
+                    throw new Exception("未知的文件类型");
                 return paths;
             }
         }
@@ -144,11 +240,25 @@ namespace JXGIS.FZToponymy.Business.Common
         {
             using (var dbContext = SystemUtils.NewEFDbContext)
             {
-                if (fileType == "门牌")
+                if (fileType == Enums.UploadFileCategory.HouseBZ)
+                {
+                    var query = dbContext.HOUSEBZOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                    if (query == null)
+                        throw new Exception("该文件已经被删除！");
+                    query.STATE = Enums.State.Disable;
+                }
+                else if (fileType == Enums.UploadFileCategory.MPPic || fileType == Enums.UploadFileCategory.MPQRCode)
                 {
                     var query = dbContext.MPOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.ID == ID).FirstOrDefault();
                     if (query == null)
-                        throw new Exception("该图片已经被删除！");
+                        throw new Exception("该文件已经被删除！");
+                    query.STATE = Enums.State.Disable;
+                }
+                else if (fileType == Enums.UploadFileCategory.RoadPic || fileType == Enums.UploadFileCategory.HousePic)
+                {
+                    var query = dbContext.MPOFUPLOADFILES.Where(t => t.STATE == Enums.State.Enable).Where(t => t.ID == ID).FirstOrDefault();
+                    if (query == null)
+                        throw new Exception("该文件已经被删除！");
                     query.STATE = Enums.State.Disable;
                 }
                 else

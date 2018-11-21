@@ -15,7 +15,6 @@ namespace JXGIS.FZToponymy.Models.Context
         {
             this.Database.Initialize(false);
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             string connectionString = (string)SystemUtils.Config.DbConStr;
@@ -41,16 +40,17 @@ namespace JXGIS.FZToponymy.Models.Context
 
             //添加用户和行政区划的映射关系
             modelBuilder.Entity<SYSUSER>().HasMany(t => t.DISTRICTs).WithMany(t => t.SYSUSERs).Map(m => { m.MapLeftKey("USERID"); m.MapRightKey("DISTRICTID"); m.ToTable("USER_DISTRICT"); });
+
+            //添加住宅和道路的映射关系
+            modelBuilder.Entity<HOUSE>().HasMany(t => t.ROADs).WithMany(t => t.HOUSEs).Map(m => { m.MapLeftKey("ID"); m.MapRightKey("ROAD"); m.ToTable("HOUSE_ROAD"); });
         }
         public DbSet<SYSUSER> SYSUSER { get; set; }
-
         public DbSet<SYSROLE> SYSROLE { get; set; }
-
         public DbSet<SYSPRIVILIGE> SYSPRIVILIGE { get; set; }
-
         public DbSet<SYSDEPARTMENT> SYSDEPARTMENT { get; set; }
         public DbSet<DISTRICT> DISTRICT { get; set; }
+        public DbSet<HOUSEBZOFUPLOADFILES> HOUSEBZOFUPLOADFILES { get; set; }
+        public DbSet<DMOFUPLOADFILES> DMOFUPLOADFILES { get; set; }
         public DbSet<MPOFUPLOADFILES> MPOFUPLOADFILES { get; set; }
-
     }
 }
