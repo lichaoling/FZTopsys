@@ -84,9 +84,6 @@ namespace JXGIS.FZToponymy.Models.Domain
         /// 门牌规格
         /// </summary>
         public string MPSIZE { get; set; }
-        /// <summary>
-        /// 产权人
-        /// </summary>
-        public string PROPERTYOWNER { get; set; }
+       
     }
 }

@@ -52,5 +52,9 @@ namespace JXGIS.FZToponymy.Models.Context
         public DbSet<HOUSEBZOFUPLOADFILES> HOUSEBZOFUPLOADFILES { get; set; }
         public DbSet<DMOFUPLOADFILES> DMOFUPLOADFILES { get; set; }
         public DbSet<MPOFUPLOADFILES> MPOFUPLOADFILES { get; set; }
+        public DbSet<MP> MP { get; set; }
+        public DbSet<LZP> LZP { get; set; }
+        public DbSet<DYP> DYP { get; set; }
+        public DbSet<HSP> HSP { get; set; }
     }
 }

@@ -153,10 +153,12 @@
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\UploadFileController.cs" />
     <Compile Include="Models\Domain\DMOFUPLOADFILES.cs" />
+    <Compile Include="Models\Domain\DYP.cs" />
     <Compile Include="Models\Domain\HOUSE.cs" />
     <Compile Include="Models\Domain\HOUSEBZ.cs" />
     <Compile Include="Models\Domain\HOUSEBZOFUPLOADFILES.cs" />
     <Compile Include="Models\Domain\HSP.cs" />
+    <Compile Include="Models\Domain\LZP.cs" />
     <Compile Include="Models\Domain\MP.cs" />
     <Compile Include="Models\Domain\MPOFUPLOADFILES.cs" />
     <Compile Include="Models\Domain\ROAD.cs" />
